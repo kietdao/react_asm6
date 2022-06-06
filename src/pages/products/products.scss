@@ -1,0 +1,10 @@
+.product_list {
+    padding: 15px;
+    .anticon[tabindex] {
+        transform: scale(1.5);
+        &:hover {
+            transform: scale(2.5);
+            color: #1890ff;
+        }
+    }
+}

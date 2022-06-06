@@ -1,0 +1,36 @@
+.product_detail {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 30px;
+    .ant-card {
+        border: 1px solid #1890ff;
+        box-shadow: 0px 0px 8px 0px;
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+    .ant-card-head {
+        .ant-card-head-title {
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+    }
+    .ant-card-body {
+        p {
+            span {
+                text-transform: uppercase;
+                font-weight: bold;
+            }
+        }
+        .actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            p {
+                margin: 0;
+            }
+        }   
+    }
+    
+}
