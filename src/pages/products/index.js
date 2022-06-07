@@ -16,6 +16,7 @@ export default function Products() {
   const [quantity, setQuantity] = useState(1)
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  let isLoaded = useSelector((state) => state.products.isProductLoaded)
   useEffect(() => {
     async function getCocktailInfo() {
       try {
@@ -27,7 +28,7 @@ export default function Products() {
             type: drink.strCategory,
             photo: drink.strDrinkThumb
           }
-        }) 
+        })
         setCocktailData(data)
         dispatch(getCocktailList(data))
       } catch(error) {
