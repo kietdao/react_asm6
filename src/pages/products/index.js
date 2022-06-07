@@ -3,7 +3,7 @@ import { Routes, Route, useNavigate } from 'react-router-dom'
 import { Table, Tag, Space, Image, InputNumber } from 'antd';
 import { PlusSquareOutlined } from '@ant-design/icons'
 import { useSelector, useDispatch } from 'react-redux'
-import { getCocktailList } from '../../features/products/productsSlice'
+import { getCocktailList, getProductId } from '../../features/products/productsSlice'
 import { addToCart } from '../../features/cart/cartSlice'
 import axios from 'axios';
 import './products.scss'
@@ -15,6 +15,7 @@ export default function Products() {
   const [cocktailData,setCocktailData] = useState([])
   const [quantity, setQuantity] = useState(1)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   useEffect(() => {
     async function getCocktailInfo() {
       try {
@@ -44,15 +45,25 @@ export default function Products() {
     setQuantity(value)
   }
 
+  const onClickToViewProductDetail = function (id) {
+      dispatch(getProductId(id))
+      navigate(`/product/${id}`)
+  }
+
   const columns = [
     {
       title: 'STT',
-      render: () => i++,
+      render: (text, index) => (
+        cocktailData.indexOf(index) + 1
+      ),
     },
     {
       title: 'Tên món',
       dataIndex: 'name',
       key: 'name',
+      render: (text, item) => (
+        <span onClick={() => onClickToViewProductDetail(item.key)}>{text}</span>
+      )
     },
     {
       title: 'Loại đồ uống',

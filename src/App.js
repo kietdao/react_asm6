@@ -1,5 +1,6 @@
 import 'antd/dist/antd.css';
 import { Routes, Route } from 'react-router-dom'
+import { useSelector } from 'react-redux';
 import Login from './pages/login'
 import ProductList from './pages/products'
 import Navigation from './components/Navigation';
@@ -9,6 +10,7 @@ import './App.css';
 
 
 function App() {
+  const productId = useSelector((state) => state.products.productId)
   return (
     <div className="App">
       <Navigation />
@@ -16,7 +18,7 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/' element={<ProductList />} />
         <Route path='/products' element={<ProductList />} />
-        <Route path='/product/id' element={<ProductDetail />} />
+        <Route path={`/product/:id`} element={<ProductDetail />} />
         <Route path='/cart' element={<Cart />} />
       </Routes>
     </div>

@@ -1,14 +1,13 @@
 import { useState, useEffect } from 'react'
 import { Table, Space, Button, InputNumber } from 'antd';
-import { useSelector } from 'react-redux';
-import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import { deleteCartItem } from '../../features/cart/cartSlice';
 import './cart.scss'
 
 export default function Cart() {
-  let i = 1
   const [cartList,setCartList] = useState([])
   const cartData = useSelector((state) => state.cart.cart)
-
+  const dispatch = useDispatch()
   useEffect(() => {
     async function getCartData() {
       try {
@@ -26,12 +25,14 @@ export default function Cart() {
       }
     }
     getCartData()
-  }, [])
+  }, [cartData])
 
   const columns = [
     {
       title: 'STT',
-      render: () => i++,
+      render: (text, index) => (
+        cartList.indexOf(index) + 1
+      ),
     },
     {
       title: 'Tên món',
@@ -54,9 +55,9 @@ export default function Cart() {
     {
       title: 'Hủy món',
       key: 'deleteFromCart',
-      render: (key) => (
+      render: (text, index) => (
         <Space size="middle">
-          <Button type='danger'>Xoá món</Button>
+          <Button type='danger' onClick={() => dispatch(deleteCartItem(cartList.indexOf(index)))}>Xoá món</Button>
         </Space>
       ),
     },
